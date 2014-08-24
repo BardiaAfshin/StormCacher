@@ -30,4 +30,9 @@ class keyValue {
         return self::$kv[$key];
     }
 
+    public function deleteKey($key)
+    {
+        unset(self::$kv[$key]);
+    }
+
 } 

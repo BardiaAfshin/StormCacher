@@ -57,6 +57,40 @@ class testKeyValueStorage extends PHPUnit_Framework_TestCase {
     }
 
 
+    public function testCanDeleteKeyFromKeyValue()
+    {
+        $key = 'status';
+        $value = 'hunting';
+
+        $kv = keyValue::getInstance();
+        $kv->register($key, $value);
+        $this->assertEquals( $value, $kv->retreive($key) );
+
+        $kv->deleteKey($key);
+
+        $this->assertEquals( null , $kv->retreive($key) );
+    }
+
+    public function testOnlyDeletesSpecifiedKeyFromKeyValue()
+    {
+        $key = 'status';
+        $value = 'hunting';
+
+        $key2 = 'favorite color';
+        $value2 = 'blue';
+
+        $kv = keyValue::getInstance();
+        $kv->register($key, $value);
+        $this->assertEquals( $value, $kv->retreive($key) );
+
+        $kv->register($key2, $value2);
+        $this->assertEquals( $value2, $kv->retreive($key2) );
+
+        $kv->deleteKey($key);
+
+        $this->assertEquals( null , $kv->retreive($key) );
+        $this->assertEquals( $value2 , $kv->retreive($key2) );
+    }
 
 }
  
